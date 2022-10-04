@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "name": "music-album",
+  "name": "multikart-api",
   "builds": [
     { "src": "src/index.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/v1/(.*)", "dest": "/src/index.js" }
+    { "src": "/(.*)", "dest": "/src/index.js" }
   ]
 }
