@@ -35,6 +35,14 @@ const updateUser = {
       email: Joi.string().email(),
       password: Joi.string().custom(password),
       name: Joi.string(),
+      role: Joi.string(),
+      isEmailVerified: Joi.bool(),
+      lastLoginAt: Joi.date().allow(null),
+      gender: Joi.number().allow(null),
+      phoneNumber: Joi.string().allow(null),
+      dob: Joi.date().allow(null),
+      location: Joi.string().allow(null),
+      social: Joi.object().allow(null),
     })
     .min(1),
 };
