@@ -358,3 +358,13 @@ The `paginate` method returns a Promise, which fulfills with an object having th
   "totalResults": 48
 }
 ```
+
+
+### Postman account:
+```bash
+multikart@yopmail.com
+```
+
+### Postman Document
+
+https://documenter.getpostman.com/view/23717866/2s83zdvmJ8

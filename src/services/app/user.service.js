@@ -1,6 +1,6 @@
 const httpStatus = require('http-status');
-const { User } = require('../models');
-const ApiError = require('../utils/ApiError');
+const { User } = require('../../models');
+const ApiError = require('../../utils/ApiError');
 
 /**
  * Create a user
@@ -24,8 +24,7 @@ const createUser = async (userBody) => {
  * @returns {Promise<QueryResult>}
  */
 const queryUsers = async (filter, options) => {
-  const users = await User.paginate(filter, options);
-  return users;
+  return await User.paginate(filter, options);
 };
 
 /**
@@ -44,6 +43,16 @@ const getUserById = async (id) => {
  */
 const getUserByEmail = async (email) => {
   return User.findOne({ email });
+};
+
+/**
+ * Get user by email
+ * @param {string} email
+ * @param {string} role
+ * @returns {Promise<User>}
+ */
+const getUserByEmailAndRole = async (email, role) => {
+  return User.findOne({ email, role });
 };
 
 /**
@@ -81,6 +90,7 @@ const deleteUserById = async (userId) => {
 
 module.exports = {
   createUser,
+  getUserByEmailAndRole,
   queryUsers,
   getUserById,
   getUserByEmail,
