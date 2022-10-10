@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/register', validate(authValidation.register), authController.register);
 router.post('/login', validate(authValidation.login), authController.login);
 router.post('/logout', validate(authValidation.logout), authController.logout);
-router.post('/me', auth(roles.admin), authController.me);
+router.get('/me', auth(roles.admin), authController.me);
 
 module.exports = router;
 

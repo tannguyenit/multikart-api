@@ -14,6 +14,7 @@ const routes = require('./routes/v1');
 const adminRoutes = require('./routes/admin');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
+const customResponse = require('./utils/response');
 
 const app = express();
 
@@ -42,8 +43,10 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
+app.use(customResponse);
+
 // jwt authentication
-app.use(passport.initialize());
+app.use(passport.initialize({}));
 passport.use('jwt', jwtStrategy);
 
 // limit repeated failed requests to auth endpoints
@@ -51,7 +54,6 @@ if (config.env === 'production') {
   app.use('/v1/auth', authLimiter);
 }
 
-// v1 api routes
 app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ 'App Name': 'Multikart API' }));
