@@ -66,8 +66,8 @@ const userSchema = mongoose.Schema(
     },
     social: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   {
     timestamps: true,

@@ -5,12 +5,23 @@ const customResponse = (req, res, next) => {
    * (default status 200)
    * Success response
    */
-  res.success = function(data = {}, message = '') {
+  res.success = function (data = {}, message = '') {
+    const { results, ...meta } = data;
+    if (meta.page) {
+      return res.json({
+        status: true,
+        data: results,
+        meta: { ...meta },
+        message,
+        errors: null,
+      });
+    }
+
     return res.json({
       status: true,
       data,
       message,
-      errors: null
+      errors: null,
     });
   };
 
@@ -20,12 +31,12 @@ const customResponse = (req, res, next) => {
    * @param data
    * @param message
    */
-  res.createSuccess = function(data = {}, message = '') {
+  res.createSuccess = function (data = {}, message = '') {
     return res.status(httpStatus.CREATED).json({
       status: true,
       data,
       message,
-      errors: null
+      errors: null,
     });
   };
 
@@ -35,24 +46,24 @@ const customResponse = (req, res, next) => {
    * @param data
    * @param message
    */
-  res.successNoContent = function(data = {}, message = '') {
+  res.successNoContent = function (data = {}, message = '') {
     return res.status(httpStatus.NO_CONTENT).json({
       status: true,
       data,
       message,
-      errors: null
+      errors: null,
     });
   };
 
   /**
    * Custom error response
    */
-  res.error = function(message = '', errors = {}) {
+  res.error = function (message = '', errors = {}) {
     return res.json({
       status: false,
       data: null,
       message,
-      errors
+      errors,
     });
   };
 
@@ -60,12 +71,12 @@ const customResponse = (req, res, next) => {
    * (status 403)
    * Forbidden request response
    */
-  res.forbidden = function(message = '', errors = {}) {
+  res.forbidden = function (message = '', errors = {}) {
     return res.status(403).error({
       status: false,
       data: null,
       message,
-      errors
+      errors,
     });
   };
 
@@ -73,12 +84,12 @@ const customResponse = (req, res, next) => {
    * (status 401)
    * Unauthorize request response
    */
-  res.unauthorize = function(message = '', errors = {}) {
+  res.unauthorize = function (message = '', errors = {}) {
     return res.status(401).error({
       status: false,
       data: null,
       message,
-      errors
+      errors,
     });
   };
 
@@ -86,12 +97,12 @@ const customResponse = (req, res, next) => {
    * (status 500)
    * Internal request response
    */
-  res.internalError = function(message = '', errors = {}) {
+  res.internalError = function (message = '', errors = {}) {
     return res.status(500).error({
       status: false,
       data: null,
       message,
-      errors
+      errors,
     });
   };
 
