@@ -9,15 +9,15 @@ const router = express.Router();
 const defaultRoutes = [
   {
     path: '/auth',
-    route: authRoute
-  }
+    route: authRoute,
+  },
 ];
 
 const privateRoutes = [
   {
     path: '/users',
-    route: userRoute
-  }
+    route: userRoute,
+  },
 ];
 
 defaultRoutes.forEach((route) => {

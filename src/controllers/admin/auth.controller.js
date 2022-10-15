@@ -3,7 +3,7 @@ const { roles } = require('../../config/roles');
 const { authService, userService, tokenService } = require('../../services/app');
 
 const register = catchAsync(async (req, res) => {
-  const user = await userService.createUser(Object.assign(req.body, { role: roles.admin}));
+  const user = await userService.createUser(Object.assign(req.body, { role: roles.admin }));
   const tokens = await tokenService.generateAuthTokens(user);
   res.createSuccess({ user, tokens });
 });
@@ -21,7 +21,7 @@ const logout = catchAsync(async (req, res) => {
 });
 
 const me = catchAsync(async (req, res) => {
-  res.success(req.user)
+  res.success(req.user);
 });
 
 module.exports = {
