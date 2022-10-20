@@ -31,7 +31,7 @@ const updateUser = catchAsync(async (req, res) => {
 
 const deleteUser = catchAsync(async (req, res) => {
   await userService.deleteUserById(req.params.userId);
-  res.successNoContent();
+  res.success(true);
 });
 
 module.exports = {

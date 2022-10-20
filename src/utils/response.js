@@ -41,21 +41,6 @@ const customResponse = (req, res, next) => {
   };
 
   /**
-   * (default status 204)
-   * Success response
-   * @param data
-   * @param message
-   */
-  res.successNoContent = function (data = {}, message = '') {
-    return res.status(httpStatus.NO_CONTENT).json({
-      status: true,
-      data,
-      message,
-      errors: null,
-    });
-  };
-
-  /**
    * Custom error response
    */
   res.error = function (message = '', errors = {}) {
