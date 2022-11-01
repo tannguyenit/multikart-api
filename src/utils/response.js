@@ -51,7 +51,18 @@ const customResponse = (req, res, next) => {
       errors,
     });
   };
-
+  /**
+   * (status 404)
+   * Resource Not Found
+   */
+  res.resourceNotFound = function (message = 'Resource Not Found', errors = {}) {
+    return res.status(404).json({
+      status: false,
+      data: null,
+      message,
+      errors,
+    });
+  };
   /**
    * (status 403)
    * Forbidden request response

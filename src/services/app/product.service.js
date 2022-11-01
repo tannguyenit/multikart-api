@@ -29,23 +29,23 @@ const getProductById = async (id) => {
 };
 
 /**
- * Delete user by id
- * @param {ObjectId} userId
- * @returns {Promise<User>}
+ * Delete product by id
+ * @param {ObjectId} productId
+ * @returns {Promise<Product>}
  */
-const deleteProductById = async (userId) => {
-  const user = await getProductById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+const deleteProductById = async (productId) => {
+  const product = await getProductById(productId);
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
-  await user.remove();
-  return user;
+  await product.remove();
+  return product;
 };
 
-const updateProduct = async (userId, updateBody) => {
-  const product = await getProductById(userId);
+const updateProduct = async (productId, updateBody) => {
+  const product = await getProductById(productId);
   if (!product) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
   Object.assign(product, updateBody);
   await product.save();
@@ -55,6 +55,7 @@ const updateProduct = async (userId, updateBody) => {
 module.exports = {
   createProduct,
   queryProducts,
+  getProductById,
   deleteProductById,
   updateProduct,
 };
