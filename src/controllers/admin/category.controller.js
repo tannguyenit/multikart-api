@@ -1,35 +1,35 @@
-const httpStatus = require('http-status');
 const pick = require('../../utils/pick');
-const ApiError = require('../../utils/ApiError');
 const catchAsync = require('../../utils/catchAsync');
 const { categoryService } = require('../../services/app');
 
-const createCategory = catchAsync(async (req, res) => {
-  const category = await categoryService.createCategory(req.body);
-  res.createSuccess(category);
+const createCategory = catchAsync(async ({ body }, res) => {
+  const category = await categoryService.createCategory(body);
+  return res.createSuccess(category);
 });
 
-const getCategories = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+const getCategories = catchAsync(async ({ query }, res) => {
+  const filter = pick(query, ['name']);
+  const options = pick(query, ['sortBy', 'limit', 'page']);
   const result = await categoryService.queryCategory(filter, options);
-  res.success(result);
+  return res.success(result);
 });
 
 const getCategory = catchAsync(async (req, res) => {
-  const category = await categoryService.getCategoryById(req.params.categoryId);
-  if (!category) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
-  }
-  res.success(category);
+  const {
+    params: { categoryId },
+  } = req;
+  const category = await categoryService.getCategoryById(categoryId);
+  if (!category) return res.resourceNotFound();
+  return res.success(category);
 });
 
 const getCategoryBySlug = catchAsync(async (req, res) => {
-  const category = await categoryService.getCategoryBySlug(req.params.slug);
-  if (!category) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
-  }
-  res.success(category);
+  const {
+    params: { slug },
+  } = req;
+  const category = await categoryService.getCategoryBySlug(slug);
+  if (!category) return res.resourceNotFound();
+  return res.success(category);
 });
 
 const updateCategory = catchAsync(async (req, res) => {
