@@ -5,7 +5,7 @@
 
 const roles = {
   admin: 'admin',
-  user: 'user'
+  user: 'user',
 };
 
 module.exports = {
