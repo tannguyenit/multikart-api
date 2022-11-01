@@ -68,7 +68,7 @@ const updateCategoryById = async (categoryId, updateBody) => {
   const { name } = updateBody;
   const slug = slugify(name, { lower: true });
   const category = await getCategoryById(categoryId);
-  const categoryName = Category.findOne({ name });
+  const categoryName = await Category.findOne({ name });
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
