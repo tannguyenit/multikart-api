@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { toJSON, paginate } = require('./plugins');
 
 const productSchema = mongoose.Schema(
   {
@@ -11,7 +12,7 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
       default: null,
     },
@@ -24,7 +25,7 @@ const productSchema = mongoose.Schema(
       type: String,
       default: null,
     },
-    brands: {
+    brand: {
       type: String,
       require: true,
     },
@@ -33,6 +34,10 @@ const productSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+// add plugin that converts mongoose to json
+productSchema.plugin(toJSON);
+productSchema.plugin(paginate);
 
 const Product = mongoose.model('product', productSchema);
 

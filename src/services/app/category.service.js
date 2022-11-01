@@ -38,7 +38,11 @@ const queryCategory = async (filter, options) => {
  * @returns {Promise<Category>}
  */
 const getCategoryBySlug = async (slug) => {
-  return Category.findOne({ slug });
+  const category = await Category.findOne({ slug });
+  if (!category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
+  }
+  return category;
 };
 
 /**
@@ -47,7 +51,11 @@ const getCategoryBySlug = async (slug) => {
  * @returns {Promise<Category>}
  */
 const getCategoryById = async (id) => {
-  return Category.findById(id);
+  const category = await Category.findById(id);
+  if (!category) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
+  }
+  return category;
 };
 /**
  * Update category by id
@@ -62,7 +70,7 @@ const updateCategoryById = async (categoryId, updateBody) => {
   const category = await getCategoryById(categoryId);
   const categoryName = Category.findOne({ name });
   if (!category) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
   if (categoryName) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already exists');
@@ -80,7 +88,7 @@ const updateCategoryById = async (categoryId, updateBody) => {
 const deleteCategoryById = async (categoryId) => {
   const category = await getCategoryById(categoryId);
   if (!category) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Category not found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
   await category.remove();
   return category;

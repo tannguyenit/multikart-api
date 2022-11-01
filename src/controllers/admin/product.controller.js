@@ -2,30 +2,48 @@ const pick = require('../../utils/pick');
 const catchAsync = require('../../utils/catchAsync');
 const { productService } = require('../../services/app');
 
-const createProduct = catchAsync(async (req, res) => {
-  const product = await productService.createProduct(req.body);
+const createProduct = catchAsync(async ({ body }, res) => {
+  const product = await productService.createProduct(body);
   res.createSuccess(product);
 });
 
-const getProducts = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'categoryId']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+const getProducts = catchAsync(async ({ query }, res) => {
+  const filter = pick(query, ['name', 'categoryId']);
+  const options = pick(query, ['sortBy', 'limit', 'page']);
   const result = await productService.queryProducts(filter, options);
-  res.success(result);
+  return res.success(result);
+});
+
+const getProduct = catchAsync(async (req, res) => {
+  const {
+    params: { productId },
+  } = req;
+  const product = await productService.getProductById(productId);
+  if (!product) return res.resourceNotFound();
+  return res.success(product);
 });
 
 const deleteProduct = catchAsync(async (req, res) => {
-  await productService.deleteUserById(req.params.productId);
-  res.success(true);
+  const {
+    params: { productId },
+  } = req;
+  const product = await productService.deleteProductById(productId);
+  if (!product) return res.resourceNotFound();
+  return res.success(true);
 });
 
 const updateProduct = catchAsync(async (req, res) => {
-  const product = await productService.updateProduct(req.params.productId, req.body);
+  const {
+    params: { productId },
+    body,
+  } = req;
+  const product = await productService.updateProduct(productId, body);
   res.success(product);
 });
 
 module.exports = {
   getProducts,
+  getProduct,
   createProduct,
   deleteProduct,
   updateProduct,
