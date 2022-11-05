@@ -14,6 +14,6 @@ router
   .route('/:productId')
   .get(validate(productValidation.getProduct), productController.getProduct)
   .delete(validate(productValidation.deleteProduct), productController.deleteProduct)
-  .patch(validate(productValidation.updateProduct), productController.updateProduct);
+  .put(validate(productValidation.updateProduct), productController.updateProduct);
 
 module.exports = router;
