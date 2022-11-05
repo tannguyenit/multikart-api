@@ -4,19 +4,18 @@ const categoryValidation = require('../../validations/category.validation');
 const categoryController = require('../../controllers/admin/category.controller');
 
 const router = express.Router();
-const checkForHexRegExp = /^[a-f\d]{24}$/i;
 router
   .route('/')
   .post(validate(categoryValidation.createCategory), categoryController.createCategory)
   .get(validate(categoryValidation.getCategories), categoryController.getCategories);
 
 router
-  .route(`/:categoryId(${checkForHexRegExp})`)
+  .route(`/:categoryId`)
   .get(validate(categoryValidation.getCategory), categoryController.getCategory)
   .patch(validate(categoryValidation.updateCategory), categoryController.updateCategory)
   .delete(validate(categoryValidation.deleteCategory), categoryController.deleteCategory);
 
-router.route('/:slug').get(validate(categoryValidation.getCategoryBySlug), categoryController.getCategoryBySlug);
+router.route('/name/:slug').get(validate(categoryValidation.getCategoryBySlug), categoryController.getCategoryBySlug);
 
 module.exports = router;
 
