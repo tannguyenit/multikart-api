@@ -11,10 +11,11 @@ const ApiError = require('../../utils/ApiError');
 
 const createCategory = async (categoryBody) => {
   const { name } = categoryBody;
-  if (await Category.findOne({ name })) {
+  const slug = slugify(name, { lower: true });
+
+  if (await Category.findOne({ slug })) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Category Name already exists');
   }
-  const slug = slugify(categoryBody.name, { lower: true });
   return Category.create({ ...categoryBody, slug });
 };
 
@@ -68,12 +69,12 @@ const updateCategoryById = async (categoryId, updateBody) => {
   const { name } = updateBody;
   const slug = slugify(name, { lower: true });
   const category = await getCategoryById(categoryId);
-  const categoryName = await Category.findOne({ name });
+  const categoryExist = await Category.findOne({ slug });
   if (!category) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
-  if (categoryName) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already exists');
+  if (categoryExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Resource already exists');
   }
   Object.assign(category, { ...updateBody, slug });
   await category.save();
