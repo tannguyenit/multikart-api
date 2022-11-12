@@ -8,6 +8,12 @@ const ApiError = require('../../utils/ApiError');
  * @returns {Promise<Product>}
  */
 const createProduct = async (productBody) => {
+  const { name } = productBody;
+  const product = await Product.findOne({ name });
+  if (product) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+  }
+
   return Product.create(productBody);
 };
 
