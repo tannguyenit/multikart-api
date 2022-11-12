@@ -20,6 +20,8 @@ const getProducts = {
     images: Joi.array(),
     description: Joi.string(),
     categoryId: Joi.string(),
+    limit: Joi.number().integer(),
+    page: Joi.number().integer(),
   }),
 };
 const getProduct = {
