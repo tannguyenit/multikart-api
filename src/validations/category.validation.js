@@ -16,6 +16,13 @@ const getCategories = {
   }),
 };
 
+const getAllCategories = {
+  query: Joi.object().keys({
+    name: Joi.string(),
+    slug: Joi.string(),
+  }),
+};
+
 const getCategory = {
   params: Joi.object().keys({
     categoryId: Joi.string().custom(objectId),
@@ -48,6 +55,7 @@ const deleteCategory = {
 module.exports = {
   createCategory,
   getCategories,
+  getAllCategories,
   getCategory,
   getCategoryBySlug,
   updateCategory,

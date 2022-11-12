@@ -9,6 +9,8 @@ router
   .post(validate(categoryValidation.createCategory), categoryController.createCategory)
   .get(validate(categoryValidation.getCategories), categoryController.getCategories);
 
+router.route('/all').get(validate(categoryValidation.getAllCategories), categoryController.getAllCategories);
+
 router
   .route(`/:categoryId`)
   .get(validate(categoryValidation.getCategory), categoryController.getCategory)

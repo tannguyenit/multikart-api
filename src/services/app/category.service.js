@@ -32,6 +32,10 @@ const queryCategory = async (filter, options) => {
   return await Category.paginate(filter, options);
 };
 
+const queryAllCategories = async () => {
+  return Category;
+};
+
 /**
  * Get category by slug
  * @param {String} slug
@@ -97,6 +101,7 @@ const deleteCategoryById = async (categoryId) => {
 module.exports = {
   createCategory,
   queryCategory,
+  queryAllCategories,
   getCategoryById,
   getCategoryBySlug,
   updateCategoryById,

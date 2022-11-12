@@ -13,6 +13,7 @@ const createProduct = async (productBody) => {
   if (product) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
+
   return Product.create(productBody);
 };
 
