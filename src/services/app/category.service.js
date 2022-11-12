@@ -32,6 +32,11 @@ const queryCategory = async (filter, options) => {
   return await Category.paginate(filter, options);
 };
 
+const queryAllCategories = async () => {
+  // eslint-disable-next-line no-return-await
+  return await Category.find();
+};
+
 /**
  * Get category by slug
  * @param {String} slug
@@ -97,6 +102,7 @@ const deleteCategoryById = async (categoryId) => {
 module.exports = {
   createCategory,
   queryCategory,
+  queryAllCategories,
   getCategoryById,
   getCategoryBySlug,
   updateCategoryById,
