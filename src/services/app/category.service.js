@@ -37,6 +37,15 @@ const queryAllCategories = async () => {
 };
 
 /**
+ * Get all category
+ */
+
+const queryAllCategories = async () => {
+  // eslint-disable-next-line no-return-await
+  return await Category.find();
+};
+
+/**
  * Get category by slug
  * @param {String} slug
  * @returns {Promise<Category>}
