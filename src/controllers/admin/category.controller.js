@@ -15,7 +15,7 @@ const getCategories = catchAsync(async ({ query }, res) => {
 });
 
 const getAllCategories = catchAsync(async (req, res) => {
-  const result = await categoryService.queryAllCategories();
+  const result = await categoryService.getAllCategories();
   return res.success(result);
 });
 
