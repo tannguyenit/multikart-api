@@ -32,10 +32,6 @@ const queryCategory = async (filter, options) => {
   return await Category.paginate(filter, options);
 };
 
-const queryAllCategories = async () => {
-  return Category;
-};
-
 /**
  * Get all category
  */
