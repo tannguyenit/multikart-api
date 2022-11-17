@@ -35,7 +35,6 @@ const queryCategory = async (filter, options) => {
 /**
  * Get all category
  */
-
 const queryAllCategories = async () => {
   // eslint-disable-next-line no-return-await
   return await Category.find();
