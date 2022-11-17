@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const productRoute = require('./product.route');
 const categoryRoute = require('./category.route');
+const brandRoute = require('./brand.route');
 const auth = require('../../middlewares/auth');
 const { roles } = require('../../config/roles');
 
@@ -27,6 +28,10 @@ const privateRoutes = [
   {
     path: '/categories',
     route: categoryRoute,
+  },
+  {
+    path: '/brands',
+    route: brandRoute,
   },
 ];
 
