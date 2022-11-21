@@ -1,5 +1,7 @@
 const httpStatus = require('http-status');
-const { Product } = require('../../models');
+const slugify = require('slugify');
+
+const { Product, Category, Brand } = require('../../models');
 const ApiError = require('../../utils/ApiError');
 
 /**
@@ -8,13 +10,21 @@ const ApiError = require('../../utils/ApiError');
  * @returns {Promise<Product>}
  */
 const createProduct = async (productBody) => {
-  const { name } = productBody;
+  const { name, categoryId, brandId } = productBody;
+  const category = await Category.findById(categoryId);
+  if (!category) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Category does not exist');
+  }
+  const brand = await Brand.findById(brandId);
+  if (!brand) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Brand does not exist');
+  }
   const product = await Product.findOne({ name });
   if (product) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
-
-  return Product.create(productBody);
+  const slug = slugify(name, { lower: true });
+  return Product.create({ ...productBody, slug });
 };
 
 /**
@@ -26,12 +36,21 @@ const createProduct = async (productBody) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
+
 const queryProducts = async (filter, options) => {
   return Product.paginate(filter, options);
 };
 
 const getProductById = async (id) => {
   return Product.findById(id);
+};
+
+const getProductBySlug = async (slug) => {
+  const product = await Product.findOne({ slug });
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
+  }
+  return product;
 };
 
 /**
@@ -63,5 +82,6 @@ module.exports = {
   queryProducts,
   getProductById,
   deleteProductById,
+  getProductBySlug,
   updateProduct,
 };

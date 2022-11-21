@@ -7,6 +7,11 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+      require: true,
+    },
     categoryId: {
       type: String,
       required: true,
@@ -25,7 +30,7 @@ const productSchema = mongoose.Schema(
       type: String,
       default: null,
     },
-    brand: {
+    brandId: {
       type: String,
       required: true,
     },

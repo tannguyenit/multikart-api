@@ -1,4 +1,6 @@
 const httpStatus = require('http-status');
+const slugify = require('slugify');
+
 const { Brand } = require('../../models');
 const ApiError = require('../../utils/ApiError');
 
@@ -14,7 +16,8 @@ const createBrand = async (brandBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
 
-  return Brand.create(brandBody);
+  const slug = slugify(name, { lower: true });
+  return Brand.create({ ...brandBody, slug });
 };
 
 /**
@@ -32,6 +35,15 @@ const queryBrands = async (filter, options) => {
 
 const getBrandById = async (id) => {
   return Brand.findById(id);
+};
+
+const getBrandBySlug = async (slug) => {
+  const brand = await Brand.findOne({ slug });
+  if (!brand) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Not Found');
+  }
+
+  return brand;
 };
 
 const getAllBrands = async () => {
@@ -65,6 +77,7 @@ const updateBrandById = async (brandId, updateBody) => {
 module.exports = {
   createBrand,
   queryBrands,
+  getBrandBySlug,
   getAllBrands,
   getBrandById,
   deleteBrandById,
