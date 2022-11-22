@@ -24,7 +24,6 @@ const createUser = async (userBody) => {
  * @returns {Promise<QueryResult>}
  */
 const queryUsers = async (filter, options) => {
-  // eslint-disable-next-line no-return-await
   return await User.paginate(filter, options);
 };
 

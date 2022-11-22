@@ -29,6 +29,13 @@ const getBrand = {
     brandId: Joi.string().custom(objectId),
   }),
 };
+
+const getBrandBySlug = {
+  params: Joi.object().keys({
+    slug: Joi.string(),
+  }),
+};
+
 const updateBrand = {
   params: Joi.object().keys({
     brandId: Joi.required().custom(objectId),
@@ -50,6 +57,7 @@ const deleteBrand = {
 module.exports = {
   createBrand,
   getAllBrands,
+  getBrandBySlug,
   getBrands,
   getBrand,
   deleteBrand,

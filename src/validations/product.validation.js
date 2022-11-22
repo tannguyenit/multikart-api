@@ -8,7 +8,7 @@ const createProduct = {
     images: Joi.array().required(),
     description: Joi.string().required(),
     categoryId: Joi.string().required(),
-    brand: Joi.string().required(),
+    brandId: Joi.string().required(),
   }),
 };
 
@@ -16,7 +16,7 @@ const getProducts = {
   query: Joi.object().keys({
     name: Joi.string(),
     price: Joi.number(),
-    brand: Joi.string(),
+    brandId: Joi.string(),
     images: Joi.array(),
     description: Joi.string(),
     categoryId: Joi.string(),
@@ -24,11 +24,19 @@ const getProducts = {
     page: Joi.number().integer(),
   }),
 };
+
+const getProductBySlug = {
+  params: Joi.object().keys({
+    slug: Joi.string(),
+  }),
+};
+
 const getProduct = {
   params: Joi.object().keys({
     productId: Joi.string().custom(objectId),
   }),
 };
+
 const updateProduct = {
   params: Joi.object().keys({
     productId: Joi.required().custom(objectId),
@@ -37,7 +45,7 @@ const updateProduct = {
     .keys({
       name: Joi.string(),
       price: Joi.number(),
-      brand: Joi.string(),
+      brandId: Joi.string(),
       images: Joi.array(),
       categoryId: Joi.string(),
       description: Joi.string().allow(null),
@@ -55,6 +63,7 @@ module.exports = {
   createProduct,
   getProducts,
   getProduct,
+  getProductBySlug,
   deleteProduct,
   updateProduct,
 };

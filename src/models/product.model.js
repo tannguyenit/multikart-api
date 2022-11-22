@@ -7,9 +7,18 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      unique: true,
+      require: true,
+    },
     categoryId: {
       type: String,
       required: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category"
     },
     price: {
       type: Number,
@@ -25,10 +34,16 @@ const productSchema = mongoose.Schema(
       type: String,
       default: null,
     },
-    brand: {
-      type: String,
+    brandId: {
+      // type: String,
       required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Brand"
     },
+    // brand: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Brand"
+    // },
   },
   {
     timestamps: true,
