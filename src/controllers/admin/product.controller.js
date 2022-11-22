@@ -8,8 +8,10 @@ const createProduct = catchAsync(async ({ body }, res) => {
 });
 
 const getProducts = catchAsync(async ({ query }, res) => {
-  const filter = pick(query, ['name', 'categoryId']);
+  const filter = pick(query, ['name', 'categoryId', 'brandId']);
   const options = pick(query, ['sortBy', 'limit', 'page']);
+  options.populate = 'brandId'
+
   const result = await productService.queryProducts(filter, options);
   return res.success(result);
 });

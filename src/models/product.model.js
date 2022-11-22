@@ -16,6 +16,10 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category"
+    },
     price: {
       type: Number,
       required: true,
@@ -31,9 +35,15 @@ const productSchema = mongoose.Schema(
       default: null,
     },
     brandId: {
-      type: String,
+      // type: String,
       required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Brand"
     },
+    // brand: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Brand"
+    // },
   },
   {
     timestamps: true,

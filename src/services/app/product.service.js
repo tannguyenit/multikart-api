@@ -6,11 +6,12 @@ const ApiError = require('../../utils/ApiError');
 
 /**
  * Create a product
- * @param {Object} productBody
+ * @param {Object} body
  * @returns {Promise<Product>}
  */
-const createProduct = async (productBody) => {
-  const { name, categoryId, brandId } = productBody;
+const createProduct = async (body) => {
+  const { name, categoryId, brandId } = body;
+  const slug = slugify(name, { lower: true });
   const category = await Category.findById(categoryId);
   if (!category) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Category does not exist');
@@ -19,12 +20,11 @@ const createProduct = async (productBody) => {
   if (!brand) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Brand does not exist');
   }
-  const product = await Product.findOne({ name });
+  const product = await Product.findOne({ slug });
   if (product) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
-  const slug = slugify(name, { lower: true });
-  return Product.create({ ...productBody, slug });
+  return Product.create({ ...body, slug });
 };
 
 /**

@@ -6,22 +6,23 @@ const ApiError = require('../../utils/ApiError');
 
 /**
  * Create a brand
- * @param {Object} brandBody
+ * @param {Object} body
  * @returns {Promise<Brand>}
  */
-const createBrand = async (brandBody) => {
-  const { name } = brandBody;
-  const brand = await Brand.findOne({ name });
+const createBrand = async (body) => {
+  const { name } = body;
+  const slug = slugify(name, { lower: true });
+
+  const brand = await Brand.findOne({ slug });
   if (brand) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
   }
 
-  const slug = slugify(name, { lower: true });
-  return Brand.create({ ...brandBody, slug });
+  return Brand.create({ ...body, slug });
 };
 
 /**
- * Query for product
+ * Query for brands
  * @param {Object} filter - Mongo filter
  * @param {Object} options - Query options
  * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
@@ -33,6 +34,11 @@ const queryBrands = async (filter, options) => {
   return Brand.paginate(filter, options);
 };
 
+/**
+ * Get brand detail by Id
+ * @param id
+ * @returns {Promise<Brand>}
+ */
 const getBrandById = async (id) => {
   return Brand.findById(id);
 };
