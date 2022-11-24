@@ -3,6 +3,7 @@ const catchAsync = require('../../utils/catchAsync');
 const { productService } = require('../../services/app');
 
 const createProduct = catchAsync(async ({ body }, res) => {
+  await productService.validateCreateProduct(body);
   const product = await productService.createProduct(body);
   res.createSuccess(product);
 });
@@ -10,7 +11,7 @@ const createProduct = catchAsync(async ({ body }, res) => {
 const getProducts = catchAsync(async ({ query }, res) => {
   const filter = pick(query, ['name', 'categoryId', 'brandId']);
   const options = pick(query, ['sortBy', 'limit', 'page']);
-  options.populate = 'brandId'
+  options.populate = 'brand,category';
 
   const result = await productService.queryProducts(filter, options);
   return res.success(result);
