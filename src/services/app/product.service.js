@@ -4,26 +4,31 @@ const slugify = require('slugify');
 const { Product, Category, Brand } = require('../../models');
 const ApiError = require('../../utils/ApiError');
 
+const validateCreateProduct = async ({ category, brand, slug }) => {
+  const categoryDetail = await Category.findById(category);
+  if (!categoryDetail) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Category does not exist');
+  }
+
+  const brandDetail = await Brand.findById(brand);
+  if (!brandDetail) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Brand does not exist');
+  }
+
+  const product = await Product.findOne({ slug });
+  if (product) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
+  }
+};
+
 /**
  * Create a product
  * @param {Object} body
  * @returns {Promise<Product>}
  */
 const createProduct = async (body) => {
-  const { name, categoryId, brandId } = body;
+  const { name } = body;
   const slug = slugify(name, { lower: true });
-  const category = await Category.findById(categoryId);
-  if (!category) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Category does not exist');
-  }
-  const brand = await Brand.findById(brandId);
-  if (!brand) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Brand does not exist');
-  }
-  const product = await Product.findOne({ slug });
-  if (product) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Name already taken');
-  }
   return Product.create({ ...body, slug });
 };
 
@@ -84,4 +89,5 @@ module.exports = {
   deleteProductById,
   getProductBySlug,
   updateProduct,
+  validateCreateProduct,
 };
