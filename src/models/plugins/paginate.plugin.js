@@ -37,6 +37,7 @@ const paginate = (schema) => {
     const skip = (page - 1) * limit;
 
     const countPromise = this.countDocuments(filter).exec();
+    const search = { name: { $regex: filter.name } };
     let docsPromise = this.find(filter).sort(sort).skip(skip).limit(limit);
 
     if (options.populate) {
@@ -61,6 +62,7 @@ const paginate = (schema) => {
         limit,
         totalPages,
         totalResults,
+        search,
       };
       return Promise.resolve(result);
     });

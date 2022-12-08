@@ -69,6 +69,7 @@ app.use(
   createProxyMiddleware({
     target: process.env.URL_UPLOAD_FILE,
     changeOrigin: true,
+    logger: console,
   })
 );
 
