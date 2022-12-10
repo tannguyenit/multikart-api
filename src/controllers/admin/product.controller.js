@@ -9,7 +9,10 @@ const createProduct = catchAsync(async ({ body }, res) => {
 });
 
 const getProducts = catchAsync(async ({ query }, res) => {
-  const filter = pick(query, ['name', 'categoryId', 'brandId']);
+  const filter = pick(query, ['name', 'category', 'brand']);
+  filter.searchCriteria = {
+    name: 'like'
+  }
   const options = pick(query, ['sortBy', 'limit', 'page']);
   options.populate = 'brand,category';
 
