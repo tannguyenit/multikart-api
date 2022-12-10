@@ -3,6 +3,7 @@ const slugify = require('slugify');
 
 const { Product, Category, Brand } = require('../../models');
 const ApiError = require('../../utils/ApiError');
+const { productTransfomer } = require('../../transformer/admin');
 
 const validateCreateProduct = async ({ category, brand, slug }) => {
   const categoryDetail = await Category.findById(category);
@@ -39,13 +40,18 @@ const createProduct = async (body) => {
  * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
  * @param {number} [options.limit] - Maximum number of results per page (default = 10)
  * @param {number} [options.page] - Current page (default = 1)
- * @returns {Promise<QueryResult>}
+ * @returns {Object}
  */
-
 const queryProducts = async (filter, options) => {
-  return Product.paginate(filter, options);
+  const data = await Product.paginate(filter, options);
+  return productTransfomer.getProductList(data)
 };
 
+/**
+ * Query for product
+ * @param {string} id - product id
+ * @returns Product
+ */
 const getProductById = async (id) => {
   return Product.findById(id);
 };
