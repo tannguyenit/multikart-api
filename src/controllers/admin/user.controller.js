@@ -7,9 +7,13 @@ const createUser = catchAsync(async (req, res) => {
   res.createSuccess(user);
 });
 
-const getUsers = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['name', 'role']);
-  const options = pick(req.query, ['sortBy', 'limit', 'page']);
+const getUsers = catchAsync(async ({ query }, res) => {
+  const filter = pick(query, ['name', 'role']);
+  filter.searchCriteria = {
+    name: 'like'
+  }
+  const options = pick(query, ['sortBy', 'limit', 'page']);
+  options.populate = 'brand,category';
   const result = await userService.queryUsers(filter, options);
   res.success(result);
 });

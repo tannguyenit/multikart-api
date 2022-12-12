@@ -4,11 +4,11 @@ const getImageThumbnail = (images) => {
     return '';
   }
 
-  if (Array.isArray(images)) {
-    return `${baseUrl}${images[0]}`;
+  if (Array.isArray(images) && images[0]) {
+    return `${baseUrl}/file${images[0]}`;
   }
 
-  return `${baseUrl}${images}`;
+  return `${baseUrl}/file${images}`;
 };
 
 module.exports = {
