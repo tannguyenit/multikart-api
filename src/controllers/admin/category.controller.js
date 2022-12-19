@@ -9,6 +9,9 @@ const createCategory = catchAsync(async ({ body }, res) => {
 
 const getCategories = catchAsync(async ({ query }, res) => {
   const filter = pick(query, ['name']);
+  filter.searchCriteria = {
+    name: 'like'
+  }
   const options = pick(query, ['sortBy', 'limit', 'page']);
   const result = await categoryService.queryCategory(filter, options);
   return res.success(result);
