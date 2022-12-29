@@ -10,8 +10,8 @@ const createBrand = catchAsync(async ({ body }, res) => {
 const getBrands = catchAsync(async ({ query }, res) => {
   const filter = pick(query, ['name']);
   filter.searchCriteria = {
-    name: 'like'
-  }
+    name: 'like',
+  };
   const options = pick(query, ['sortBy', 'limit', 'page']);
   const result = await brandService.queryBrands(filter, options);
   return res.success(result);
