@@ -44,7 +44,7 @@ const createProduct = async (body) => {
  */
 const queryProducts = async (filter, options) => {
   const data = await Product.paginate(filter, options);
-  return productTransfomer.getProductList(data)
+  return productTransfomer.getProductList(data);
 };
 
 /**
