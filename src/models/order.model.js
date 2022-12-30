@@ -21,8 +21,9 @@ const orderSchema = mongoose.Schema(
       require: true,
     },
     status: {
-      type: Boolean,
+      type: Number,
       require: true,
+      default: 0,
     },
   },
   {

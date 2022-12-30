@@ -7,7 +7,7 @@ const createOrder = {
     billingAddress: Joi.string().required(),
     amount: Joi.string().required(),
     quantity: Joi.number().required(),
-    status: Joi.boolean().required(),
+    status: Joi.number().required(),
   }),
 };
 
@@ -34,7 +34,7 @@ const updateOrder = {
       billingAddress: Joi.string().required(),
       amount: Joi.string().required(),
       quantity: Joi.number().required(),
-      status: Joi.boolean().required(),
+      status: Joi.number().required(),
     })
     .min(1),
 };
