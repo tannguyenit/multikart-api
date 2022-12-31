@@ -8,12 +8,12 @@ const orderSchema = mongoose.Schema(
       ref: 'User',
       require: true,
     },
-    billingAddress: {
+    address: {
       type: String,
       require: true,
     },
     amount: {
-      type: String,
+      type: Number,
       require: true,
     },
     quantity: {
