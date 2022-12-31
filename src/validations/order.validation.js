@@ -30,7 +30,6 @@ const updateOrder = {
   }),
   body: Joi.object()
     .keys({
-      userId: Joi.string().required(),
       address: Joi.string().required(),
       amount: Joi.number().required(),
       quantity: Joi.number().required(),
