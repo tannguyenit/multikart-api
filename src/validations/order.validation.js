@@ -4,8 +4,8 @@ const { objectId } = require('./custom.validation');
 const createOrder = {
   body: Joi.object().keys({
     user: Joi.string().required().custom(objectId),
-    address: Joi.number().required(),
-    amount: Joi.string().required(),
+    address: Joi.string().required(),
+    amount: Joi.number().required(),
     quantity: Joi.number().required(),
     status: Joi.number().required(),
   }),
@@ -31,8 +31,8 @@ const updateOrder = {
   body: Joi.object()
     .keys({
       userId: Joi.string().required(),
-      address: Joi.number().required(),
-      amount: Joi.string().required(),
+      address: Joi.string().required(),
+      amount: Joi.number().required(),
       quantity: Joi.number().required(),
       status: Joi.number().required(),
     })
