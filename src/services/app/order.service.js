@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 
 const { Order } = require('../../models');
 const ApiError = require('../../utils/ApiError');
+const { orderTransfomer } = require('../../transformer/admin');
 
 /**
  * Create a order
@@ -22,7 +23,8 @@ const createOrder = async (body) => {
  * @returns {Promise<QueryResult>}
  */
 const queryOrders = async (filter, options) => {
-  return Order.paginate(filter, options);
+  const data = await Order.paginate(filter, options);
+  return orderTransfomer.getOrders(data);
 };
 
 /**
