@@ -7,3 +7,4 @@ module.exports.categoryService = require('./category.service');
 module.exports.brandService = require('./brand.service');
 module.exports.fileService = require('./file.service');
 module.exports.orderService = require('./order.service');
+module.exports.orderDetailService = require('./orderDetail.service');
