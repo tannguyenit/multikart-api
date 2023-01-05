@@ -12,5 +12,5 @@ const getImageThumbnail = (images) => {
 };
 
 module.exports = {
-  getImageThumbnail
+  getImageThumbnail,
 };

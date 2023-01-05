@@ -1,6 +1,6 @@
 const pick = require('../../utils/pick');
 const catchAsync = require('../../utils/catchAsync');
-const { orderService } = require('../../services/app');
+const { orderService, orderDetailService } = require('../../services/app');
 
 const createOrder = catchAsync(async ({ body }, res) => {
   const order = await orderService.createOrder(body);
@@ -37,6 +37,7 @@ const updateOrder = catchAsync(async ({ params: { orderId }, body }, res) => {
 
 const deleteOrder = catchAsync(async ({ params: { orderId } }, res) => {
   await orderService.deleteOrderById(orderId);
+  await orderDetailService.deleteListOrderDetailById(orderId);
   res.success(true);
 });
 

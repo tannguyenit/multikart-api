@@ -1,9 +1,10 @@
 const express = require('express');
 const validate = require('../../middlewares/validate');
-const { orderValidation } = require('../../validations');
-const { orderController } = require('../../controllers/admin');
+const { orderValidation, orderDetailValidation } = require('../../validations');
+const { orderController, orderDetailController } = require('../../controllers/admin');
 
 const router = express.Router();
+
 router
   .route('/')
   .post(validate(orderValidation.createOrder), orderController.createOrder)
@@ -14,6 +15,14 @@ router
   .get(validate(orderValidation.getOrder), orderController.getOrder)
   .put(validate(orderValidation.updateOrder), orderController.updateOrder)
   .delete(validate(orderValidation.deleteOrder), orderController.deleteOrder);
+
+router.route('/detail').post(validate(orderDetailValidation.createOrder), orderDetailController.createOrder);
+
+router
+  .route(`/:orderId/detail/:orderDetailId`)
+  .get(validate(orderDetailValidation.getOrders), orderDetailController.getListOrderByOrderId)
+  .put(validate(orderDetailValidation.updateOrder), orderDetailController.updateOrder)
+  .delete(validate(orderDetailValidation.deleteOrder), orderDetailController.deleteOrder);
 
 module.exports = router;
 
