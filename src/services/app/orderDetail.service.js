@@ -33,9 +33,7 @@ const getListOrdersDetailByOrderId = async (orderDetailId, filter, options) => {
  * @param id
  * @returns {Promise<OrderDetail>}
  */
-const getOrderDetailById = async (id) => {
-  return OrderDetail.findById(id);
-};
+const getOrderDetailById = async (id) => OrderDetail.findById(id);
 
 /**
  * Delete order by id

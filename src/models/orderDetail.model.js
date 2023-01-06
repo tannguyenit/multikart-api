@@ -12,6 +12,18 @@ const orderDetailSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
+    customerNote: {
+      type: String,
+      require: true,
+    },
+    discount: {
+      type: Number,
+      require: true,
+    },
+    shipingFee: {
+      type: Number,
+      require: true,
+    },
     quantity: {
       type: Number,
       require: true,
