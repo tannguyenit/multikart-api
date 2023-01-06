@@ -6,6 +6,9 @@ const createOrder = {
     product: Joi.string().required().custom(objectId),
     order: Joi.string().required().custom(objectId),
     price: Joi.number().required(),
+    discount: Joi.number().required(),
+    shipingFee: Joi.number().required(),
+    customerNote: Joi.string().required(),
     quantity: Joi.number().required(),
   }),
 };
@@ -24,8 +27,10 @@ const updateOrder = {
   }),
   body: Joi.object()
     .keys({
-      quantity: Joi.number().required(),
       price: Joi.number(),
+      quantity: Joi.number(),
+      discount: Joi.number(),
+      shipingFee: Joi.number(),
     })
     .min(1),
 };
