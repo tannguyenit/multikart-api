@@ -4,8 +4,8 @@ const getOrders = (data) => {
     const { user, address, amount, quantity, status, _id } = i.toObject();
     return {
       user: {
-        name: user.name,
-        _id: user._id,
+        name: user.name || null,
+        _id: user._id || null,
       },
       _id,
       address,
