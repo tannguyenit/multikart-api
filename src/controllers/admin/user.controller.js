@@ -1,6 +1,6 @@
 const pick = require('../../utils/pick');
 const catchAsync = require('../../utils/catchAsync');
-const { userService } = require('../../services/app');
+const { userService, orderService } = require('../../services/app');
 
 const createUser = catchAsync(async (req, res) => {
   const user = await userService.createUser(req.body);
@@ -29,8 +29,11 @@ const updateUser = catchAsync(async (req, res) => {
   res.success(user);
 });
 
-const deleteUser = catchAsync(async (req, res) => {
-  await userService.deleteUserById(req.params.userId);
+const deleteUser = catchAsync(async ({ params: { userId } }, res) => {
+  await orderService.deleteOrderByUserId(userId);
+
+  await userService.deleteUserById(userId);
+
   res.success(true);
 });
 
