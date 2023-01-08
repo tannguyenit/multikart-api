@@ -8,12 +8,12 @@ const orderDetailSchema = mongoose.Schema(
       ref: 'product',
       require: true,
     },
-    price: {
-      type: Number,
+    order: {
+      type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
-    customerNote: {
-      type: String,
+    price: {
+      type: Number,
       require: true,
     },
     discount: {
@@ -26,10 +26,6 @@ const orderDetailSchema = mongoose.Schema(
     },
     quantity: {
       type: Number,
-      require: true,
-    },
-    order: {
-      type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
   },

@@ -7,6 +7,7 @@ const createOrder = {
     address: Joi.string().required(),
     amount: Joi.number().required(),
     quantity: Joi.number().required(),
+    customerNote: Joi.string().required(),
     status: Joi.number().required(),
   }),
 };

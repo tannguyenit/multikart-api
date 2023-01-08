@@ -16,6 +16,10 @@ const orderSchema = mongoose.Schema(
       type: Number,
       require: true,
     },
+    customerNote: {
+      type: String,
+      require: true,
+    },
     quantity: {
       type: Number,
       require: true,

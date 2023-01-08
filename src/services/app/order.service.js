@@ -51,6 +51,20 @@ const deleteOrderById = async (orderId) => {
 };
 
 /**
+ * Delete user by id model order
+ * @param {ObjectId} userId
+ * @returns {Promise<Order>}
+ */
+const deleteOrderByUserId = async (userId) => {
+  const user = await Order.find({ user: userId });
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
+  }
+  await user.remove();
+  return user;
+};
+
+/**
  * Delete order by id
  * @param {ObjectId} orderId
  * @param {Object} updateBody
@@ -69,6 +83,7 @@ module.exports = {
   createOrder,
   queryOrders,
   getOrderById,
+  deleteOrderByUserId,
   deleteOrderById,
   updateOrderById,
 };
