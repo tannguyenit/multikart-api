@@ -1,7 +1,8 @@
 const getOrders = (data) => {
   const { results, ...meta } = data;
+  console.log(results);
   const products = results.map((i) => {
-    const { user, customerNote, address, amount, quantity, status, _id } = i.toObject();
+    const { user, customerNote, address, amount, quantity, status, _id, createdAt, updatedAt } = i.toObject();
     return {
       _id,
       user: {
@@ -13,6 +14,8 @@ const getOrders = (data) => {
       amount,
       quantity,
       status,
+      createdAt,
+      updatedAt,
     };
   });
 
