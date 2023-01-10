@@ -10,16 +10,16 @@ const getProductList = (data) => {
       _id,
       name,
       category: {
-        name: category.name,
-        _id: category._id,
+        name: category?.name || null,
+        _id: category?._id || null,
       },
       brand: {
-        name: brand.name,
-        _id: brand._id,
+        name: brand?.name || null,
+        _id: brand?._id || null,
       },
+      thumbnail: getImageThumbnail(images),
       createdAt,
       updatedAt,
-      thumbnail: getImageThumbnail(images),
     };
   });
 
