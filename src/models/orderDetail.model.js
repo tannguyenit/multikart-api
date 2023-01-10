@@ -8,28 +8,22 @@ const orderDetailSchema = mongoose.Schema(
       ref: 'product',
       require: true,
     },
+    order: {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+    },
     price: {
       type: Number,
       require: true,
     },
-    customerNote: {
-      type: String,
-      require: true,
-    },
-    discount: {
+    discountPercent: {
       type: Number,
-      require: true,
     },
     shipingFee: {
       type: Number,
-      require: true,
     },
     quantity: {
       type: Number,
-      require: true,
-    },
-    order: {
-      type: mongoose.Schema.Types.ObjectId,
       require: true,
     },
   },
