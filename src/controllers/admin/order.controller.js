@@ -25,8 +25,12 @@ const getAllOrders = catchAsync(async (req, res) => {
 });
 
 const getOrder = catchAsync(async ({ params: { orderId } }, res) => {
-  const order = await orderService.getOrderById(orderId);
+  const options = pick({}, ['sortBy', 'limit', 'page']);
+  options.populate = 'user';
+
+  const order = await orderService.getOrderById(orderId, options);
   if (!order) return res.resourceNotFound();
+
   return res.success(order);
 });
 
