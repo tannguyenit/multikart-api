@@ -6,3 +6,4 @@ module.exports.brandController = require('./brand.controller');
 module.exports.fileController = require('./file.controller');
 module.exports.orderController = require('./order.controller');
 module.exports.orderDetailController = require('./orderDetail.controller');
+module.exports.productReviewController = require('./productReview.controller');

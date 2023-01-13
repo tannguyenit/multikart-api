@@ -3,7 +3,7 @@ const { getImageThumbnail } = require('../../utils/app');
 const getListOrdersDetailByOrderId = (data) => {
   const { results, ...meta } = data;
 
-  const products = results.map((i) => {
+  const orderDetail = results.map((i) => {
     const { product, discountPercent, shipingFee, quantity, price, order, _id, createdAt, updatedAt } = i.toObject();
 
     return {
@@ -25,7 +25,7 @@ const getListOrdersDetailByOrderId = (data) => {
   });
 
   return {
-    results: products,
+    results: orderDetail,
     ...meta,
   };
 };
