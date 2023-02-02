@@ -53,9 +53,15 @@ const queryProducts = async (filter, options) => {
  * @returns Product
  */
 const getProductById = async (id) => {
-  return Product.findById(id);
+  const data = await Product.findById(id);
+  return productTransfomer.getProduct(data);
 };
 
+/**
+ * Query for product
+ * @param {string} slug - product slug
+ * @returns Product
+ */
 const getProductBySlug = async (slug) => {
   const product = await Product.findOne({ slug });
   if (!product) {
@@ -70,7 +76,7 @@ const getProductBySlug = async (slug) => {
  * @returns {Promise<Product>}
  */
 const deleteProductById = async (productId) => {
-  const product = await getProductById(productId);
+  const product = await Product.findById(productId);
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
@@ -79,7 +85,7 @@ const deleteProductById = async (productId) => {
 };
 
 const updateProduct = async (productId, updateBody) => {
-  const product = await getProductById(productId);
+  const product = await Product.findById(productId);
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
