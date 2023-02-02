@@ -33,7 +33,7 @@ const getProductList = (data) => {
 const getProduct = (data) => {
   const { price, description, _id, name, category, slug, brand, createdAt, updatedAt, images } = data;
   const imagesArr = images.map(i => `${baseUrl}/file${i}`);
-  const products = {
+  return {
     _id,
     price,
     images: imagesArr,
@@ -44,10 +44,6 @@ const getProduct = (data) => {
     slug,
     createdAt,
     updatedAt
-  };
-
-  return {
-    results: products,
   };
 };
 
