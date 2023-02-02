@@ -1,4 +1,5 @@
 const { getImageThumbnail } = require('../../utils/app');
+const baseUrl = process.env.APP_URL;
 
 const getProductList = (data) => {
   const { results, ...meta } = data;
@@ -29,6 +30,28 @@ const getProductList = (data) => {
   };
 };
 
+const getProduct = (data) => {
+  const { price, description, _id, name, category, slug, brand, createdAt, updatedAt, images } = data;
+  const imagesArr = images.map(i => `${baseUrl}/file/${i}`);
+  const products = {
+    _id,
+    price,
+    images: imagesArr,
+    description,
+    name,
+    category,
+    brand,
+    slug,
+    createdAt,
+    updatedAt
+  };
+
+  return {
+    results: products,
+  };
+};
+
 module.exports = {
+  getProduct,
   getProductList,
 };
