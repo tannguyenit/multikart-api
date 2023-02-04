@@ -32,7 +32,7 @@ const queryOrders = async (filter, options) => {
  * @param id
  * @returns {Promise<Order>}
  */
-const getOrderById = async (id, options) => {
+const getOrderById = async (id, options = null) => {
   const data = await Order.findById(id, null, options);
 
   return orderTransfomer.getOrder(data);
@@ -44,7 +44,7 @@ const getOrderById = async (id, options) => {
  * @returns {Promise<Order>}
  */
 const deleteOrderById = async (orderId) => {
-  const order = await getOrderById(orderId);
+  const order = await Order.findById(orderId);
   if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
@@ -58,12 +58,13 @@ const deleteOrderById = async (orderId) => {
  * @returns {Promise<Order>}
  */
 const deleteOrderByUserId = async (userId) => {
-  const user = await Order.find({ user: userId });
-  if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
+  const order = await Order.find({ user: userId });
+  if (order) {
+    order.map(async (o) => {
+      await o.remove();
+    });
   }
-  await user.remove();
-  return user;
+  return order;
 };
 
 /**
