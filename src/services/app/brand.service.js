@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const slugify = require('slugify');
 
 const { Brand } = require('../../models');
+const { brandTransfomer } = require('../../transformer/admin');
 const ApiError = require('../../utils/ApiError');
 
 /**
@@ -31,7 +32,8 @@ const createBrand = async (body) => {
  * @returns {Promise<QueryResult>}
  */
 const queryBrands = async (filter, options) => {
-  return Brand.paginate(filter, options);
+  const data = await Brand.paginate(filter, options);
+  return brandTransfomer.getBrandsList(data);
 };
 
 /**
