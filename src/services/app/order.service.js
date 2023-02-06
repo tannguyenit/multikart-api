@@ -73,7 +73,7 @@ const deleteOrderByUserId = async (userId) => {
  * @param {Object} updateBody
  */
 const updateOrderById = async (orderId, updateBody) => {
-  const order = await getOrderById(orderId);
+  const order = await Order.findById(orderId);
   if (!order) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
