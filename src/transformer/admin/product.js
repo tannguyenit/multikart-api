@@ -4,7 +4,7 @@ const baseUrl = process.env.APP_URL;
 const getProductList = (data) => {
   const { results, ...meta } = data;
   const products = results.map((i) => {
-    const { price, description, _id, name, category, brand, createdAt, updatedAt, images } = i.toObject();
+    const { price, description, _id, name, category, brand, createdAt, updatedAt, deletedAt, images } = i.toObject();
     return {
       price,
       description,
@@ -19,6 +19,7 @@ const getProductList = (data) => {
         _id: brand?._id || null,
       },
       thumbnail: getImageThumbnail(images),
+      deletedAt,
       createdAt,
       updatedAt,
     };
@@ -31,7 +32,7 @@ const getProductList = (data) => {
 };
 
 const getProduct = (data) => {
-  const { price, description, _id, name, category, slug, brand, createdAt, updatedAt, images } = data;
+  const { price, description, _id, name, category, slug, brand, createdAt, updatedAt, deletedAt, images } = data;
   const imagesArr = images.map(i => ({
     fullUrl: `${baseUrl}/file${i}`,
     path: i
@@ -46,6 +47,7 @@ const getProduct = (data) => {
     category,
     brand,
     slug,
+    deletedAt,
     createdAt,
     updatedAt
   };

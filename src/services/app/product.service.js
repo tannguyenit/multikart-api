@@ -43,7 +43,7 @@ const createProduct = async (body) => {
  * @returns {Object}
  */
 const queryProducts = async (filter, options) => {
-  const data = await Product.paginate(filter, options);
+  const data = await Product.paginate({ ...filter, deletedAt: null }, options);
   return productTransfomer.getProductList(data);
 };
 
@@ -80,7 +80,9 @@ const deleteProductById = async (productId) => {
   if (!product) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
-  await product.remove();
+  const deletedAt = new Date();
+  Object.assign(product, { ...product, deletedAt });
+  await product.save();
   return product;
 };
 
