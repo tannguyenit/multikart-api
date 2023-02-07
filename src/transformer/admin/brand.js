@@ -20,6 +20,20 @@ const getBrandsList = (data) => {
   };
 };
 
+const getBrand = (data) => {
+  const { _id, name, logo, createdAt, updatedAt, slug } = data;
+
+  return {
+    _id,
+    name,
+    logo: `${baseUrl}/file${logo}`,
+    slug,
+    createdAt,
+    updatedAt,
+  };
+};
+
 module.exports = {
   getBrandsList,
+  getBrand,
 };
