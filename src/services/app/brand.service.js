@@ -42,7 +42,8 @@ const queryBrands = async (filter, options) => {
  * @returns {Promise<Brand>}
  */
 const getBrandById = async (id) => {
-  return Brand.findById(id);
+  const data = await Brand.findById(id);
+  return brandTransfomer.getBrand(data);
 };
 
 const getBrandBySlug = async (slug) => {
@@ -64,7 +65,7 @@ const getAllBrands = async () => {
  * @returns {Promise<Brand>}
  */
 const deleteBrandById = async (brandId) => {
-  const brand = await getBrandById(brandId);
+  const brand = await Brand.findById(brandId);
   if (!brand) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
@@ -73,7 +74,7 @@ const deleteBrandById = async (brandId) => {
 };
 
 const updateBrandById = async (brandId, updateBody) => {
-  const brand = await getBrandById(brandId);
+  const brand = await Brand.findById(brandId);
   if (!brand) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Resource not found');
   }
